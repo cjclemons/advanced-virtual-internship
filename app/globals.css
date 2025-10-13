@@ -466,9 +466,7 @@ button:disabled {
     z-index: 9999
 }
 
-.modal--open .auth__wrapper {
-  display: flex; /* only when body has .modal--open */
-}
+
 
 .auth {
     position: relative;

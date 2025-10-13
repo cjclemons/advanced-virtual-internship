@@ -1,10 +1,8 @@
-"use client"
-
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import { AuthModalProvider } from "./components/context/AuthModalContext";
 import AuthenticationModal from "./components/AuthenticationModal";
-import { useAuthModal } from "./components/context/AuthModalContext";
+
 import "./globals.css";
 
 const roboto = Roboto({ subsets: ["latin"] });
@@ -23,14 +21,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${roboto.className} antialiased`}>
         <AuthModalProvider>
-          {children} <AuthenticationModalWrapper />
+          {children} <AuthenticationModal />
         </AuthModalProvider>
       </body>
     </html>
   );
-}
-
-function AuthenticationModalWrapper() {
-  const { isAuthOpen, closeAuthModal } = useAuthModal();
-  return <AuthenticationModal isOpen={isAuthOpen} onClose={closeAuthModal} />;
 }

@@ -27,7 +27,7 @@ function Landing() {
                 <button className="btn home__cta--btn">Login</button>
               </div>
               <figure className="landing__image--mask">
-                <LandingImage src="/landing.png" width={500} height={300} />
+                <LandingImage src="/landing.png" alt="" width={500} height={300} />
               </figure>
             </div>
           </div>
