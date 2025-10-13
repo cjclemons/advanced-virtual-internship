@@ -1,8 +1,11 @@
+"use client"
+
 import LandingImage from "next/image"
 
 
 
 function Landing() {
+    
   return (
     <>
       <section id="landing">

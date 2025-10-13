@@ -13,6 +13,10 @@ function Reviews() {
                   <div class="review__name">Hanna M.</div>
                   <div class="review__stars">
                     <BsStarFill />
+                    <BsStarFill />
+                    <BsStarFill />
+                    <BsStarFill />
+                    <BsStarFill />
                   </div>
                 </div>
                 <div class="review__body">
@@ -25,6 +29,10 @@ function Reviews() {
                 <div class="review__header">
                   <div class="review__name">David B.</div>
                   <div class="review__stars">
+                    <BsStarFill />
+                    <BsStarFill />
+                    <BsStarFill />
+                    <BsStarFill />
                     <BsStarFill />
                   </div>
                 </div>
@@ -40,6 +48,10 @@ function Reviews() {
                   <div class="review__name">Nathan S.</div>
                   <div class="review__stars">
                     <BsStarFill />
+                    <BsStarFill />
+                    <BsStarFill />
+                    <BsStarFill />
+                    <BsStarFill />
                   </div>
                 </div>
                 <div class="review__body">
@@ -53,6 +65,10 @@ function Reviews() {
                 <div class="review__header">
                   <div class="review__name">Ryan R.</div>
                   <div class="review__stars">
+                    <BsStarFill />
+                    <BsStarFill />
+                    <BsStarFill />
+                    <BsStarFill />
                     <BsStarFill />
                   </div>
                 </div>

@@ -22,6 +22,9 @@ function Numbers() {
               <div class="numbers">
                 <div class="numbers__icon numbers__star--icon">
                   <BsStarFill />
+                  <BsStarFill />
+                  <BsStarFill />
+                  <BsStarFill />
                   <BsStarHalf />
                 </div>
                 <div class="numbers__title">4.5 Stars</div>
