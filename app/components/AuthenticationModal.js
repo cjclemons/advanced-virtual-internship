@@ -11,34 +11,18 @@ import RegisterModal from "../components/modal/RegisterModal";
 
 function AuthenticationModal() {
   const { isAuthOpen, closeAuthModal } = useAuthModal();
-  const [showLogin, setShowLogin] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
-  console.log(showRegister);
+  const [activeModal, setActiveModal] = useState(null); // "login" or "register"
 
   useEffect(() => {
     if (isAuthOpen) {
-      // Whenever the modal opens, default to showing the login modal
-      setShowLogin(true);
-      setShowRegister(false);
+      setActiveModal("login"); // default to login when modal opens
     }
   }, [isAuthOpen]);
 
-  const openLogin = () => {
-    setShowLogin(true);
-    setShowRegister(false);
-  };
-
-  const openRegister = () => {
-    setShowRegister(true);
-    setShowLogin(false);
-  };
-
-  const closeLogin = () => {
-    setShowLogin(false);
-    closeAuthModal();
-  };
-  const closeRegister = () => {
-    setShowRegister(false);
+  const openLogin = () => setActiveModal("login");
+  const openRegister = () => setActiveModal("register");
+  const closeModal = () => {
+    setActiveModal(null);
     closeAuthModal();
   };
 
@@ -47,15 +31,11 @@ function AuthenticationModal() {
     <>
       <div className="auth__wrapper">
         <div className="auth">
-          {showLogin && (
-            <LoginModal closeLogin={closeLogin} openRegister={openRegister} />
+          {activeModal === "login" && (
+            <LoginModal closeLogin={closeModal} openRegister={openRegister} />
           )}
-
-          {showRegister && (
-            <RegisterModal
-              closeRegister={closeRegister}
-              openLogin={openLogin}
-            />
+          {activeModal === "register" && (
+            <RegisterModal closeRegister={closeModal} openLogin={openLogin} />
           )}
         </div>
       </div>
