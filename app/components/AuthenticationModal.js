@@ -27,28 +27,48 @@ function AuthenticationModal() {
       <div className="auth__wrapper">
         <div className="auth">
           {showRegister ? (
-            <RegisterModal closeRegister={closeRegister} />
+            <div className="auth">
+              <RegisterModal closeRegister={closeRegister} />
+              <div className="auth__close--btn" onClick={closeAuthModal}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  height="28"
+                  width="28"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </div>
+            </div>
           ) : (
-            <LoginModal openRegister={openRegister} />
+            <div className="auth">
+              <LoginModal openRegister={openRegister} />
+              <div className="auth__close--btn" onClick={closeAuthModal}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  height="28"
+                  width="28"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </div>
+            </div>
           )}
-
-          <div className="auth__close--btn" onClick={closeAuthModal}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              height="28"
-              width="28"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </div>
         </div>
       </div>
     </>
