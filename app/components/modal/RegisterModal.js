@@ -2,7 +2,7 @@ import GoogleIcon from "next/image";
 import { useAuthModal } from "../context/AuthModalContext";
 import Link from "next/link";
 
-function RegisterModal({closeRegister}) {
+function RegisterModal({openLogin, closeRegister}) {
   return (
     <>
       <div className="auth__content">
@@ -32,10 +32,10 @@ function RegisterModal({closeRegister}) {
           </button>
         </form>
       </div>
-      <button className="auth__switch--btn" onClick={closeRegister}>
+      <button className="auth__switch--btn" onClick={openLogin}>
         Already have an account?
       </button>
-      <div className="auth__close--btn">
+      <div className="auth__close--btn" onClick={closeRegister}>
         <svg
           stroke="currentColor"
           fill="none"
