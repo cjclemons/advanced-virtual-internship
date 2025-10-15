@@ -35,11 +35,11 @@ function AuthenticationModal() {
 
   const closeLogin = () => {
     setShowLogin(false);
-    closeAuthModal;
+    closeAuthModal();
   };
   const closeRegister = () => {
     setShowRegister(false);
-    closeAuthModal;
+    closeAuthModal();
   };
 
   if (!isAuthOpen) return null;
