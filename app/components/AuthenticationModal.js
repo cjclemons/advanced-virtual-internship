@@ -1,51 +1,37 @@
 "use client";
-import GoogleIcon from "next/image";
+
 import { useAuthModal } from "./context/AuthModalContext";
+import Link from "next/link";
+import { useState } from "react";
+import LoginModal from "../components/modal/LoginModal";
+import RegisterModal from "../components/modal/RegisterModal";
+// import { createUserWithEmailAndPassword } from "firebase/auth";
+// import { doc, setDoc } from "firebase/firestore";
+// import { auth, db } from "@/lib/firebase";
 
 function AuthenticationModal() {
   const { isAuthOpen, closeAuthModal } = useAuthModal();
-  console.log("AuthenticationModal isAuthOpen:", isAuthOpen);
+  const [showRegister, setShowRegister] = useState(false);
+  console.log(showRegister);
+
+  const openRegister = () => {
+    setShowRegister(true);
+  };
+  const closeRegister = () => {
+    setShowRegister(false);
+  };
+
   if (!isAuthOpen) return null;
   return (
     <>
       <div className="auth__wrapper">
         <div className="auth">
-          <div className="auth__content">
-            <div className="auth__title">Log in to Summarist</div>
-            <button className="btn guest__btn--wrapper">
-              <figure className="google__icon--mask guest__icon--mask"></figure>
-              <div>Login as a Guest</div>
-            </button>
-            <div className="auth__separator">
-              <span className="auth__separator--text">or</span>
-            </div>
-            <button className="btn google__btn--wrapper">
-              <figure className="google__icon--mask">
-                <GoogleIcon src="/google.png" alt="" width={500} height={300} />
-              </figure>
-              <div>Login with Google</div>
-            </button>
-            <div className="auth__separator">
-              <span className="auth__separator--text">or</span>
-            </div>
-            <form className="auth__main--form">
-              <input
-                className="auth__main--input"
-                type="text"
-                placeholder="Email Address"
-              />
-              <input
-                className="auth__main--input"
-                type="password"
-                placeholder="Password"
-              />
-              <button className="btn">
-                <span>Login</span>
-              </button>
-            </form>
-          </div>
-          <div className="auth__forgot--password">Forgot your password?</div>
-          <button className="auth__switch--btn">Don't have an account?</button>
+          {showRegister ? (
+            <RegisterModal closeRegister={closeRegister} />
+          ) : (
+            <LoginModal openRegister={openRegister} />
+          )}
+
           <div className="auth__close--btn" onClick={closeAuthModal}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
