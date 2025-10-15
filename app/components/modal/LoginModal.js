@@ -3,7 +3,7 @@ import { useAuthModal } from "../context/AuthModalContext";
 import Link from "next/link";
 
 function LoginModal({ closeLogin, openRegister }) {
-  const { isAuthOpen, closeAuthModal } = useAuthModal();
+  const { closeAuthModal } = useAuthModal();
 
   return (
     <>
@@ -55,27 +55,27 @@ function LoginModal({ closeLogin, openRegister }) {
             <span>Login</span>
           </button>
         </form>
-      </div>
-      <div className="auth__forgot--password">Forgot your password?</div>
-      <button className="auth__switch--btn" onClick={openRegister}>
-        Don't have an account?
-      </button>
-      <div className="auth__close--btn" onClick={closeLogin}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          height="28"
-          width="28"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
+        <div className="auth__forgot--password">Forgot your password?</div>
+        <button className="auth__switch--btn" onClick={openRegister}>
+          Don't have an account?
+        </button>
+        <div className="auth__close--btn" onClick={closeLogin}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            height="28"
+            width="28"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </div>
       </div>
     </>
   );

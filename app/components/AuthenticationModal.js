@@ -3,16 +3,15 @@
 import { useAuthModal } from "./context/AuthModalContext";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import LoginModal from "../components/modal/LoginModal";
-import RegisterModal from "../components/modal/RegisterModal";
+import LoginModal from "./modal/LoginModal";
+import RegisterModal from "./modal/RegisterModal";
 // import { createUserWithEmailAndPassword } from "firebase/auth";
 // import { doc, setDoc } from "firebase/firestore";
 // import { auth, db } from "@/lib/firebase";
 
 function AuthenticationModal() {
   const { isAuthOpen, closeAuthModal } = useAuthModal();
-  const [activeModal, setActiveModal] = useState(null); // "login" or "register"
-
+  const [activeModal, setActiveModal] = useState(null);
   useEffect(() => {
     if (isAuthOpen) {
       setActiveModal("login"); // default to login when modal opens
