@@ -1,10 +1,33 @@
+"use client";
 import GoogleIcon from "next/image";
 import { useAuthModal } from "../context/AuthModalContext";
 import Link from "next/link";
+import React, { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/firebase";
 
 function LoginModal({ closeLogin, openRegister }) {
   const { closeAuthModal } = useAuthModal();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+console.log(auth)
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError("");
 
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log("User logged in:", userCredential.user.uid);
+      closeAuthModal(); // close modal
+    } catch (err) {
+      setError(err.message);
+    }
+  };
   return (
     <>
       <div className="auth__content">
@@ -40,20 +63,27 @@ function LoginModal({ closeLogin, openRegister }) {
         <div className="auth__separator">
           <span className="auth__separator--text">or</span>
         </div>
-        <form className="auth__main--form">
+        <form className="auth__main--form" onSubmit={handleLogin}>
           <input
             className="auth__main--input"
-            type="text"
+            type="email"
             placeholder="Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
           />
           <input
             className="auth__main--input"
             type="password"
             placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
           />
-          <button className="btn">
+          <button className="btn" type="submit">
             <span>Login</span>
           </button>
+          {error && <p>{error}</p>}
         </form>
         <div className="auth__forgot--password">Forgot your password?</div>
         <button className="auth__switch--btn" onClick={openRegister}>

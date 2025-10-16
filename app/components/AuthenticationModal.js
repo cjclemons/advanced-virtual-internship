@@ -5,9 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import LoginModal from "./modal/LoginModal";
 import RegisterModal from "./modal/RegisterModal";
-// import { createUserWithEmailAndPassword } from "firebase/auth";
-// import { doc, setDoc } from "firebase/firestore";
-// import { auth, db } from "@/lib/firebase";
+
 
 function AuthenticationModal() {
   const { isAuthOpen, closeAuthModal } = useAuthModal();

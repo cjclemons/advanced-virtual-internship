@@ -1,8 +1,45 @@
+"use client"
 import GoogleIcon from "next/image";
 import { useAuthModal } from "../context/AuthModalContext";
 import Link from "next/link";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "@/firebase";
+import { useState } from "react";
+
 
 function RegisterModal({ openLogin, closeRegister }) {
+  const { closeAuthModal } = useAuthModal();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+
+      // Optional: Save user to Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
+        createdAt: new Date().toISOString(),
+        
+      });
+
+      console.log("User registered:", user.uid);
+      closeAuthModal(); // close modal
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
     <>
       <div className="auth__content">
@@ -16,20 +53,27 @@ function RegisterModal({ openLogin, closeRegister }) {
         <div className="auth__separator">
           <span className="auth__separator--text">or</span>
         </div>
-        <form className="auth__main--form">
+        <form className="auth__main--form" onSubmit={handleRegister}>
           <input
             className="auth__main--input"
-            type="text"
+            type="email"
             placeholder="Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
           />
           <input
             className="auth__main--input"
             type="password"
             placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
           />
-          <button className="btn">
+          <button className="btn" type="submit">
             <span>Sign up</span>
           </button>
+          {error && <p>{error}</p>}
         </form>
         <button className="auth__switch--btn" onClick={openLogin}>
           Already have an account?
