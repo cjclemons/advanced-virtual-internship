@@ -18,7 +18,14 @@ console.log("🔥 Firebase Config:", firebaseConfig);
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
-// Initialize Auth and Database
-const auth = getAuth(app);
-const db = getFirestore(app);
-export { auth, db };
+// ✅ Export functions that only run on client
+export const getClientAuth = () => {
+  if (typeof window === "undefined") return null;
+  return getAuth(app);
+};
+console.log(getClientAuth())
+
+export const getClientDb = () => {
+  if (typeof window === "undefined") return null;
+  return getFirestore(app);
+};

@@ -4,17 +4,21 @@ import { useAuthModal } from "../context/AuthModalContext";
 import Link from "next/link";
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/firebase";
+import { getClientAuth } from "@/firebase";
+import { useRouter } from "next/navigation";
 
 function LoginModal({ closeLogin, openRegister }) {
   const { closeAuthModal } = useAuthModal();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-console.log(auth)
+  const router = useRouter();
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
+
+    const auth = getClientAuth();
 
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -24,6 +28,7 @@ console.log(auth)
       );
       console.log("User logged in:", userCredential.user.uid);
       closeAuthModal(); // close modal
+      router.push("/for-you");
     } catch (err) {
       setError(err.message);
     }
@@ -80,9 +85,11 @@ console.log(auth)
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+
           <button className="btn" type="submit">
             <span>Login</span>
           </button>
+
           {error && <p>{error}</p>}
         </form>
         <div className="auth__forgot--password">Forgot your password?</div>

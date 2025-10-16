@@ -6,12 +6,13 @@ function FinishedBooks() {
       <div className="for-you__recommended--books">
         <a className="for-you__recommended--books-link" href="/book/18tro3gle2p">
           <audio src="https://firebasestorage.googleapis.com/v0/b/summaristt.appspot.com/o/books%2Faudios%2Fhow-to-talk-to-anyone.mp3?alt=media&amp;token=30173e56-fbe6-4162-8184-64d24dc480ac"></audio>
-          <figure className="book__image--wrapper" style="margin-bottom: 8px;">
+          <figure className="book__image--wrapper" >
+            {/* style="margin-bottom: 8px;" */}
             <img
               className="book__image"
               src="https://firebasestorage.googleapis.com/v0/b/summaristt.appspot.com/o/books%2Fimages%2Fhow-to-talk-to-anyone.png?alt=media&amp;token=48f77463-a093-42b4-8f1f-82fa4edd044c"
               alt="book"
-              style="display: block;"
+              // style="display: block;"
             />
           </figure>
           <div className="recommended__book--title">How to Talk to Anyone</div>
@@ -25,7 +26,7 @@ function FinishedBooks() {
                 <svg
                   stroke="currentColor"
                   fill="currentColor"
-                  stroke-width="0"
+                  strokeWidth="0"
                   viewBox="0 0 24 24"
                   height="1em"
                   width="1em"
@@ -42,7 +43,7 @@ function FinishedBooks() {
                 <svg
                   stroke="currentColor"
                   fill="currentColor"
-                  stroke-width="0"
+                  strokeWidth="0"
                   viewBox="0 0 1024 1024"
                   height="1em"
                   width="1em"
@@ -59,3 +60,5 @@ function FinishedBooks() {
     </>
   );
 }
+
+export default FinishedBooks

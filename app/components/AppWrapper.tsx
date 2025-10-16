@@ -13,8 +13,9 @@ interface AppWrapperProps {
   const pathname = usePathname();
 
   const isHome = pathname === '/';
+  const isPlan = pathname ==='/choose-plan'
 
-  if (isHome) {
+  if (isHome||isPlan) {
     return (
       <>
         {children}

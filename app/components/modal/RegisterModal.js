@@ -1,12 +1,11 @@
-"use client"
+"use client";
 import GoogleIcon from "next/image";
 import { useAuthModal } from "../context/AuthModalContext";
 import Link from "next/link";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { auth, db } from "@/firebase";
+import { getClientAuth, getClientDb } from "@/firebase";
 import { useState } from "react";
-
 
 function RegisterModal({ openLogin, closeRegister }) {
   const { closeAuthModal } = useAuthModal();
@@ -17,6 +16,14 @@ function RegisterModal({ openLogin, closeRegister }) {
   const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
+
+    const auth = getClientAuth();
+    const db = getClientDb();
+
+    if (!auth) {
+      setError("Firebase Auth not initialized");
+      return;
+    }
 
     try {
       const userCredential = await createUserWithEmailAndPassword(
@@ -30,7 +37,6 @@ function RegisterModal({ openLogin, closeRegister }) {
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
         createdAt: new Date().toISOString(),
-        
       });
 
       console.log("User registered:", user.uid);
@@ -70,9 +76,11 @@ function RegisterModal({ openLogin, closeRegister }) {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button className="btn" type="submit">
-            <span>Sign up</span>
-          </button>
+          
+            <button className="btn" type="submit">
+              <span>Sign up</span>
+            </button>
+          
           {error && <p>{error}</p>}
         </form>
         <button className="auth__switch--btn" onClick={openLogin}>
