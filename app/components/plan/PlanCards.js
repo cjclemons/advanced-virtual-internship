@@ -1,40 +1,96 @@
+"use client";
+import { useEffect, useState } from "react";
+
 function PlanCards() {
+  const [planCardActive, setPlanCardActive] = useState(null);
+
+  //   useEffect(() => {
+  //     if (userLoggedin) {
+  //       setPlanCardActive("yearly"); // default to login when modal opens
+  //     }
+  //   }, [userLoggedin]);
+
+//   const openLogin = () => setPlanCardActive("yearly");
+//   const openRegister = () => setPlanCardActive("register");
+//   const closeModal = () => {
+//     setActiveModal(null);
+//     closeAuthModal();
+//   };
+
   return (
     <>
       <div className="section__title">Choose the plan that fits you</div>
-      <div className="plan__card plan__card--active">
+      <div
+        onClick={() => setPlanCardActive("yearly")}
+        className={`plan__card ${
+          planCardActive === "yearly" ? "plan__card--active" : ""
+        }`}
+      >
         <div className="plan__card--circle">
-          <div className="plan__card--dot"></div>
+          <div
+            className={`${
+              planCardActive === "yearly" ? "plan__card--dot" : ""
+            }`}
+          ></div>
         </div>
         <div className="plan__card--content">
           <div className="plan__card--title">Premium Plus Yearly</div>
-          <div className="plan__card--price">$99.99/year</div>
+          <div className="plan__card--price">$59.99/year</div>
           <div className="plan__card--text">7-day free trial included</div>
         </div>
       </div>
       <div className="plan__card--separator">
         <div className="plan__separator">or</div>
       </div>
-      <div className="plan__card ">
-        <div className="plan__card--circle"></div>
+      <div
+        onClick={() => setPlanCardActive("monthly")}
+        className={`plan__card ${
+          planCardActive === "monthly" ? "plan__card--active" : ""
+        }`}
+      >
+        <div className="plan__card--circle">
+          <div
+            className={`${
+              planCardActive === "monthly" ? "plan__card--dot" : ""
+            }`}
+          ></div>
+        </div>
         <div className="plan__card--content">
           <div className="plan__card--title">Premium Monthly</div>
-          <div className="plan__card--price">$9.99/month</div>
+          <div className="plan__card--price">$5.99/month</div>
           <div className="plan__card--text">No trial included</div>
         </div>
       </div>
-      <div className="plan__card--cta">
-        <span className="btn--wrapper">
-          <button className="btn" >
-            {/* style="width:300px" */}
-            <span>Start your free 7-day trial</span>
-          </button>
-        </span>
-        <div className="plan__disclaimer">
-          Cancel your trial at any time before it ends, and you won’t be
-          charged.
-        </div>
-      </div>
+      {planCardActive === "yearly" ? (
+        <>
+          <div className="plan__card--cta">
+            <span className="btn--wrapper">
+              <button className="btn">
+                {/* style="width:300px" */}
+                <span>Start your free 7-day trial</span>
+              </button>
+            </span>
+            <div className="plan__disclaimer">
+              Cancel your trial at any time before it ends, and you won't be
+              charged.
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="plan__card--cta">
+            <span className="btn--wrapper">
+              <button className="btn">
+                {/* style="width:300px" */}
+                <span>Start your first month</span>
+              </button>
+            </span>
+            <div className="plan__disclaimer">
+              30-day money back guarantee, no questions asked.
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 }

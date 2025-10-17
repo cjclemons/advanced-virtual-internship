@@ -1,4 +1,5 @@
-import Image from "next/image"
+import PricingTop from "next/image";
+
 function PlanHeader() {
   return (
     <>
@@ -11,16 +12,13 @@ function PlanHeader() {
             Turn ordinary moments into amazing learning opportunities
           </div>
           <figure className="plan__img--mask">
-            <Image
+            <PricingTop
               alt="pricing"
-              src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fpricing-top.4d86e93a.png&amp;w=1920&amp;q=75"
+              src="/pricing-top.png"
               width={860}
               height={722}
-              decoding="async"
-              data-nimg="1"
               loading="lazy"
-              style={{color: 'transparent'}}
-              
+              style={{ color: "transparent" }}
             />
           </figure>
         </div>
