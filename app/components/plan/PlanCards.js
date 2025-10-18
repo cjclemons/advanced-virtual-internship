@@ -4,18 +4,7 @@ import { useEffect, useState } from "react";
 function PlanCards() {
   const [planCardActive, setPlanCardActive] = useState(null);
 
-  //   useEffect(() => {
-  //     if (userLoggedin) {
-  //       setPlanCardActive("yearly"); // default to login when modal opens
-  //     }
-  //   }, [userLoggedin]);
-
-//   const openLogin = () => setPlanCardActive("yearly");
-//   const openRegister = () => setPlanCardActive("register");
-//   const closeModal = () => {
-//     setActiveModal(null);
-//     closeAuthModal();
-//   };
+  
 
   return (
     <>

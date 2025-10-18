@@ -1,23 +1,23 @@
 import Logo from "next/image";
 import Link from "next/link";
+import { useAuthModal } from "../context/AuthModalContext";
+import { useAuth } from "../context/AuthContext";
 
 function SideBar() {
+  const { openAuthModal } = useAuthModal();
+  const { user, logout } = useAuth();
+
   return (
     <>
       <div className="sidebar sidebar--closed">
         <div className="sidebar__logo">
-          <Logo src="/logo.png" alt="" width={500} height={300} />
-          {/* <img
+          <Logo
+            src="/logo.png"
             alt=""
-            srcSet="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.1b1c490b.png&amp;w=640&amp;q=75 1x, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.1b1c490b.png&amp;w=1080&amp;q=75 2x"
-            src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.1b1c490b.png&amp;w=1080&amp;q=75"
-            width="495"
-            height="114"
-            decoding="async"
-            data-nimg="1"
-            loading="lazy"
-            style="color: transparent;"
-          /> */}
+            width={495}
+            height={114}
+            style={{ color: "transparent" }}
+          />
         </div>
         <div className="sidebar__wrapper">
           <div className="sidebar__top">
@@ -137,7 +137,16 @@ function SideBar() {
               </div>
               <div className="sidebar__link--text">Help &amp; Support</div>
             </div>
-            <div className="sidebar__link--wrapper">
+            <div
+              className="sidebar__link--wrapper"
+              onClick={() => {
+                if (user) {
+                  logout(); // logs out the user
+                } else {
+                  openAuthModal(); // open login modal
+                }
+              }}
+            >
               <div className="sidebar__link--line "></div>
               <div className="sidebar__icon--wrapper">
                 <svg
@@ -156,7 +165,9 @@ function SideBar() {
                   <line x1="21" y1="12" x2="9" y2="12"></line>
                 </svg>
               </div>
-              <div className="sidebar__link--text">Logout</div>
+              <div className="sidebar__link--text">
+                {user ? "Logout" : "Login"}
+              </div>
             </div>
           </div>
         </div>

@@ -1459,6 +1459,7 @@ button:disabled {
   height: 0;
   overflow: hidden;
   transition: height 0.35s ease;
+  visibility: visible;
 }
 
 .collapse.show {

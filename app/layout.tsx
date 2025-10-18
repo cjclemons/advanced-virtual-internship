@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import { AuthModalProvider } from "./components/context/AuthModalContext";
 import AuthenticationModal from "./components/AuthenticationModal";
+import { AuthProvider } from "./components/context/AuthContext";
 
-import AppWrapper from "./components/AppWrapper"
+import AppWrapper from "./components/AppWrapper";
 
 import "./globals.css";
 
@@ -22,12 +23,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto.className} antialiased`}>
-        <AuthModalProvider>
-          <AppWrapper>
-            {children}
-            <AuthenticationModal />
-          </AppWrapper>
-        </AuthModalProvider>
+        <AuthProvider>
+          <AuthModalProvider>
+            <AppWrapper>
+              {children}
+              <AuthenticationModal />
+            </AppWrapper>
+          </AuthModalProvider>
+        </AuthProvider>
       </body>
     </html>
   );

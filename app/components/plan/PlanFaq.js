@@ -21,6 +21,7 @@ function PlanFaq() {
               expires. With Premium access, you can learn at your own pace and
               as frequently as you desire, and you may terminate your
               subscription prior to the conclusion of the 7-day free trial.`,
+            height: `120px`,
           },
           {
             id: "faq2",
@@ -29,6 +30,7 @@ function PlanFaq() {
             answer: ` While an annual plan is active, it is not feasible to switch to a
               monthly plan. However, once the current month ends, transitioning
               from a monthly plan to an annual plan is an option.`,
+            height: `72px`,
           },
           {
             id: "faq3",
@@ -37,6 +39,7 @@ function PlanFaq() {
               experience, including unrestricted entry to many best-selling
               books high-quality audio, the ability to download titles for
               offline reading, and the option to send your reads to your Kindle.`,
+              height: `96px`
           },
           {
             id: "faq4",
@@ -45,6 +48,7 @@ function PlanFaq() {
               conclusion. While you will not have complete access to the entire
               Summarist library, you can still expand your knowledge with one
               curated book per day.`,
+              height: `96px`
           },
         ].map((faq) => (
           <div
@@ -71,7 +75,7 @@ function PlanFaq() {
             </div>
             <div
               className={`collapse ${showAnswer === faq.id ? "show" : ""}`}
-              style={{ height: showAnswer === faq.id ? "120px" : "0px" }}
+              style={{ height: showAnswer === faq.id ? faq.height : "0px" }}
             >
               <div className="accordion__body">{faq.answer}</div>
             </div>
