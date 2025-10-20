@@ -1,3 +1,4 @@
+"use client";
 import { getAuth, signOut } from "firebase/auth";
 
 async function Logout() {

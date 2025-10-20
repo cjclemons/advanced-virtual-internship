@@ -1,3 +1,4 @@
+"use client";
 import LoginImage from "next/image";
 import { useAuthModal } from "./context/AuthModalContext";
 

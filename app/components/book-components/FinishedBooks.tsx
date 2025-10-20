@@ -1,12 +1,9 @@
-'use client'; 
+"use client";
 
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchFinishedBooks } from '../../redux/booksSlice';
-import { RootState, AppDispatch } from '../../redux/store';
-
-
-
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchFinishedBooks } from "../../redux/booksSlice";
+import { RootState, AppDispatch } from "../../redux/store";
 
 function FinishedBooks() {
   const dispatch = useDispatch<AppDispatch>();
@@ -26,9 +23,12 @@ function FinishedBooks() {
       <div className="for-you__title">Finished</div>
       <div className="for-you__sub--title">13 items</div>
       <div className="for-you__recommended--books">
-        <a className="for-you__recommended--books-link" href="/book/18tro3gle2p">
+        <a
+          className="for-you__recommended--books-link"
+          href="/book/18tro3gle2p"
+        >
           <audio src="https://firebasestorage.googleapis.com/v0/b/summaristt.appspot.com/o/books%2Faudios%2Fhow-to-talk-to-anyone.mp3?alt=media&amp;token=30173e56-fbe6-4162-8184-64d24dc480ac"></audio>
-          <figure className="book__image--wrapper" >
+          <figure className="book__image--wrapper">
             {/* style="margin-bottom: 8px;" */}
             <img
               className="book__image"
@@ -83,4 +83,4 @@ function FinishedBooks() {
   );
 }
 
-export default FinishedBooks
+export default FinishedBooks;

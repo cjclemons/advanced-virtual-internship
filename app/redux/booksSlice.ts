@@ -1,3 +1,4 @@
+"use client";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Book } from "../types/books";
 import axios from "axios";

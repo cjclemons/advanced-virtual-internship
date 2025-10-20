@@ -1,12 +1,9 @@
-'use client'; 
+"use client";
 
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchSelectedBooks } from '../../redux/booksSlice';
-import { RootState, AppDispatch } from '../../redux/store';
-
-
-
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSelectedBooks } from "../../redux/booksSlice";
+import { RootState, AppDispatch } from "../../redux/store";
 
 function SelectedBooks() {
   const dispatch = useDispatch<AppDispatch>();

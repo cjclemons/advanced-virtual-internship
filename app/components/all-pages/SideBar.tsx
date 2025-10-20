@@ -1,3 +1,4 @@
+"use client";
 import Logo from "next/image";
 import Link from "next/link";
 import { useAuthModal } from "../context/AuthModalContext";

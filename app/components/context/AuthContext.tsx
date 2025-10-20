@@ -1,14 +1,20 @@
-'use client';
+"use client";
 
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { getAuth, onAuthStateChanged, signOut, User } from 'firebase/auth';
-import { getFirestore, doc, getDoc } from 'firebase/firestore';
-import { getClientAuth, getClientDb } from '@/firebase';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from "react";
+import { getAuth, onAuthStateChanged, signOut, User } from "firebase/auth";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getClientAuth, getClientDb } from "@/firebase";
 
 // 1. Define the shape of your context
 interface UserData {
   email: string;
-  plan: 'premium' | 'premium_plus';
+  plan: "premium" | "premium_plus";
   createdAt: string;
 }
 
@@ -29,7 +35,7 @@ interface AuthProviderProps {
 // 4. Create the AuthProvider
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
-  const [userData, setUserData] = useState<UserData | null>(null);// replace `any` with specific type if possible
+  const [userData, setUserData] = useState<UserData | null>(null); // replace `any` with specific type if possible
   const [loading, setLoading] = useState(true);
 
   const auth = getClientAuth();
@@ -42,7 +48,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setUser(firebaseUser);
 
       if (firebaseUser) {
-        const docRef = doc(db, 'users', firebaseUser.uid);
+        const docRef = doc(db, "users", firebaseUser.uid);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
@@ -73,7 +79,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };

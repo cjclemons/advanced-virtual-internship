@@ -1,3 +1,4 @@
+"use client";
 import SelectedBooks from "../components/book-components/SelectedBooks";
 import RecommendedBooks from "../components/book-components/RecommendedBooks";
 import SuggestedBooks from "../components/book-components/SuggestedBooks";
