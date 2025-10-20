@@ -14,16 +14,16 @@ const firebaseConfig = {
   messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
   appId: process.env.NEXT_PUBLIC_APP_ID,
 };
-console.log("🔥 Firebase Config:", firebaseConfig);
+if (!firebaseConfig.apiKey) {
+  throw new Error(" Missing Firebase config.");
+}
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
 // ✅ Export functions that only run on client
-export const getClientAuth = () => {
-  if (typeof window === "undefined") return null;
-  return getAuth(app);
-};
-console.log(getClientAuth())
+
+export const getClientAuth = () =>
+  typeof window !== "undefined" ? getAuth(app) : null;
 
 export const getClientDb = () => {
   if (typeof window === "undefined") return null;

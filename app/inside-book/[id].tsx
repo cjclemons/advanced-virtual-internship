@@ -183,14 +183,15 @@ function InsideBook() {
             <div className="inner-book--img-wrapper">
               <figure
                 className="book__image--wrapper"
-                style="height: 300px; width: 300px; min-width: 300px;"
-              >
+                >
+                {/* style="height: 300px; width: 300px; min-width: 300px;" */}
                 <img
                   className="book__image"
                   src="https://firebasestorage.googleapis.com/v0/b/summaristt.appspot.com/o/books%2Fimages%2Fcant-hurt-me.png?alt=media&amp;token=026646b0-40f8-48c4-8d32-b69bd5b8f700"
                   alt="book"
-                  style="display: block;"
-                />
+                  
+                  />
+                  {/* style="display: block;" */}
               </figure>
             </div>
           </div>

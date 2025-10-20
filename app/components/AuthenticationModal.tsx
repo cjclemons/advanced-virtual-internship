@@ -9,7 +9,7 @@ import RegisterModal from "./modal/RegisterModal";
 
 function AuthenticationModal() {
   const { isAuthOpen, closeAuthModal } = useAuthModal();
-  const [activeModal, setActiveModal] = useState(null);
+  const [activeModal, setActiveModal] = useState<'login' | 'register' | null>(null);
   useEffect(() => {
     if (isAuthOpen) {
       setActiveModal("login"); // default to login when modal opens

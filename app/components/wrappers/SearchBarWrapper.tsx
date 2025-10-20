@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import SearchBar from "./all-pages/SearchBar";
+import SearchBar from "../all-pages/SearchBar";
 
 export default function SearchBarWrapper() {
   const pathname = usePathname();

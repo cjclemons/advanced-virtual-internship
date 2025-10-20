@@ -2,9 +2,9 @@
 import { useState } from "react";
 
 function PlanFaq() {
-  const [showAnswer, setShowAnswer] = useState(null);
+  const [showAnswer, setShowAnswer] = useState<string | null>(null);
 
-  const toggleAnswer = (faqId) => {
+  const toggleAnswer = (faqId: string) => {
     setShowAnswer((prev) => (prev === faqId ? null : faqId));
   };
 

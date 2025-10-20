@@ -1,5 +1,5 @@
 import LoginImage from "next/image";
-import { useAuthModal } from "../components/context/AuthModalContext";
+import { useAuthModal } from "./context/AuthModalContext";
 
 function Login() {
   const { openAuthModal } = useAuthModal();

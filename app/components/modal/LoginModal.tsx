@@ -1,5 +1,5 @@
 "use client";
-import GoogleIcon from "next/image";
+import Image from "next/image";
 import { useAuthModal } from "../context/AuthModalContext";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -7,18 +7,27 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { getClientAuth } from "@/firebase";
 import { useRouter } from "next/navigation";
 
-function LoginModal({ closeLogin, openRegister }) {
+interface LoginModalProps {
+  closeLogin: ()=> void;
+  openRegister: ()=> void;
+}
+
+function LoginModal({ closeLogin, openRegister }: LoginModalProps) {
   const { closeAuthModal } = useAuthModal();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e:  React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 
     const auth = getClientAuth();
+    if (!auth) {
+      setError('Firebase Auth or DB not initialized')
+      return 
+    }
 
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -29,7 +38,7 @@ function LoginModal({ closeLogin, openRegister }) {
       console.log("User logged in:", userCredential.user.uid);
       closeAuthModal(); // close modal
       router.push("/for-you");
-    } catch (err) {
+    } catch (err: any) {
       setError(err.message);
     }
   };
@@ -61,7 +70,7 @@ function LoginModal({ closeLogin, openRegister }) {
         </div>
         <button className="btn google__btn--wrapper">
           <figure className="google__icon--mask">
-            <GoogleIcon src="/google.png" alt="" width={500} height={300} />
+            <Image src="/google.png" alt="" width={500} height={300} />
           </figure>
           <div>Login with Google</div>
         </button>

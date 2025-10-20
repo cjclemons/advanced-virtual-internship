@@ -1,4 +1,26 @@
+'use client'; 
+
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchFinishedBooks } from '../../redux/booksSlice';
+import { RootState, AppDispatch } from '../../redux/store';
+
+
+
+
 function FinishedBooks() {
+  const dispatch = useDispatch<AppDispatch>();
+  const { finished, loading, error } = useSelector(
+    (state: RootState) => state.books
+  );
+
+  useEffect(() => {
+    dispatch(fetchFinishedBooks());
+  }, [dispatch]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error loading recommended books</div>;
+
   return (
     <>
       <div className="for-you__title">Finished</div>

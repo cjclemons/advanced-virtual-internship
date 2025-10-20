@@ -1,6 +1,6 @@
-import SelectedBooks from "../components/SelectedBooks";
-import RecommendedBooks from "../components/RecommendedBooks";
-import SuggestedBooks from "../components/SuggestedBooks";
+import SelectedBooks from "../components/book-components/SelectedBooks";
+import RecommendedBooks from "../components/book-components/RecommendedBooks";
+import SuggestedBooks from "../components/book-components/SuggestedBooks";
 
 function forYou() {
   return (

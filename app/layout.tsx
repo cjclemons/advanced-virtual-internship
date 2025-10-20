@@ -3,8 +3,10 @@ import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import { AuthModalProvider } from "./components/context/AuthModalContext";
 import AuthenticationModal from "./components/AuthenticationModal";
 import { AuthProvider } from "./components/context/AuthContext";
+import {Provider} from "react-redux"
+import { store } from "./redux/store";
 
-import AppWrapper from "./components/AppWrapper";
+import AppWrapper from "./components/wrappers/AppWrapper";
 
 import "./globals.css";
 
@@ -23,6 +25,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto.className} antialiased`}>
+        <Provider store={store}>
+
         <AuthProvider>
           <AuthModalProvider>
             <AppWrapper>
@@ -31,6 +35,7 @@ export default function RootLayout({
             </AppWrapper>
           </AuthModalProvider>
         </AuthProvider>
+        </Provider>
       </body>
     </html>
   );

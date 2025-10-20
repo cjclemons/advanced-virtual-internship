@@ -1,4 +1,4 @@
-"use client"
+
 
 import LandingImage from "next/image"
 
