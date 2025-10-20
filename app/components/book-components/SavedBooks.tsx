@@ -1,12 +1,16 @@
+"use client";
 function SavedBooks() {
   return (
     <>
       <div className="for-you__title">Saved Books</div>
       <div className="for-you__sub--title">4 items</div>
       <div className="for-you__recommended--books">
-        <a className="for-you__recommended--books-link" href="/book/2l0idxm1rvw">
+        <a
+          className="for-you__recommended--books-link"
+          href="/book/2l0idxm1rvw"
+        >
           <audio src="https://firebasestorage.googleapis.com/v0/b/summaristt.appspot.com/o/books%2Faudios%2Fcan't-hurt-me.mp3?alt=media&amp;token=7de57406-60ca-49d6-9113-857507f48312"></audio>
-          <figure className="book__image--wrapper" > 
+          <figure className="book__image--wrapper">
             {/* style="margin-bottom: 8px;" */}
             <img
               className="book__image"

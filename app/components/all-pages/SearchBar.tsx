@@ -1,3 +1,4 @@
+"use client";
 function SearchBar() {
   return (
     <>
@@ -13,7 +14,7 @@ function SearchBar() {
                   className="search__input"
                   placeholder="Search for books"
                   type="text"
-                //   value=""
+                  //   value=""
                 />
                 <div className="search__icon">
                   <svg

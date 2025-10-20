@@ -1,11 +1,8 @@
+"use client";
 
-
-import LandingImage from "next/image"
-
-
+import LandingImage from "next/image";
 
 function Landing() {
-    
   return (
     <>
       <section id="landing">
@@ -27,7 +24,12 @@ function Landing() {
                 <button className="btn home__cta--btn">Login</button>
               </div>
               <figure className="landing__image--mask">
-                <LandingImage src="/landing.png" alt="" width={500} height={300} />
+                <LandingImage
+                  src="/landing.png"
+                  alt=""
+                  width={500}
+                  height={300}
+                />
               </figure>
             </div>
           </div>

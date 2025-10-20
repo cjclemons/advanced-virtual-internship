@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import SavedBooks from "../components/book-components/SavedBooks";
 import FinishedBooks from "../components/book-components/FinishedBooks";
 import Login from "../components/Login";

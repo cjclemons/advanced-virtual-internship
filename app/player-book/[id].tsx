@@ -1,10 +1,10 @@
+"use client";
 function PlayerBook() {
   return (
     <>
       <div className="summary">
-        <div className="audio__book--summary" 
-        >
-            {/* style="font-size: 16px;" */}
+        <div className="audio__book--summary">
+          {/* style="font-size: 16px;" */}
           <div className="audio__book--summary-title">
             <b>Can’t Hurt Me</b>
           </div>
@@ -100,16 +100,14 @@ function PlayerBook() {
           <audio src="https://firebasestorage.googleapis.com/v0/b/summaristt.appspot.com/o/books%2Faudios%2Fcan't-hurt-me.mp3?alt=media&amp;token=7de57406-60ca-49d6-9113-857507f48312"></audio>
           <div className="audio__track--wrapper">
             <figure className="audio__track--image-mask">
-              <figure
-                className="book__image--wrapper"
-                >
+              <figure className="book__image--wrapper">
                 {/* style="height: 48px; width: 48px; min-width: 48px;" */}
                 <img
                   className="book__image"
                   src="https://firebasestorage.googleapis.com/v0/b/summaristt.appspot.com/o/books%2Fimages%2Fcant-hurt-me.png?alt=media&amp;token=026646b0-40f8-48c4-8d32-b69bd5b8f700"
                   alt="book"
-                  />
-                  {/* style="display: block;" */}
+                />
+                {/* style="display: block;" */}
               </figure>
             </figure>
             <div className="audio__track--details-wrapper">
@@ -178,8 +176,8 @@ function PlayerBook() {
               className="audio__progress--bar"
               value="0"
               max="292.872"
-              />
-              {/* style="background: linear-gradient(to right, rgb(43, 217, 124) 0%, rgb(109, 120, 125) 0%); --range-progress: 0%;" */}
+            />
+            {/* style="background: linear-gradient(to right, rgb(43, 217, 124) 0%, rgb(109, 120, 125) 0%); --range-progress: 0%;" */}
             <div className="audio__time">04:52</div>
           </div>
         </div>
@@ -188,4 +186,4 @@ function PlayerBook() {
   );
 }
 
-export default PlayerBook
+export default PlayerBook;

@@ -1,3 +1,4 @@
+"use client";
 import { BiCrown } from "react-icons/bi";
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import { RiLeafLine } from "react-icons/ri";
@@ -8,7 +9,9 @@ function Numbers() {
       <section id="numbers">
         <div className="container">
           <div className="row">
-            <div className="section__title">Start growing with Summarist now</div>
+            <div className="section__title">
+              Start growing with Summarist now
+            </div>
             <div className="numbers__wrapper">
               <div className="numbers">
                 <div className="numbers__icon">

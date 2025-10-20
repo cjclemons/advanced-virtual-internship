@@ -1,3 +1,4 @@
+"use client";
 function InsideBook() {
   return (
     <>
@@ -140,7 +141,9 @@ function InsideBook() {
                   Saved in My Library
                 </div>
               </div>
-              <div className="inner-book__secondary--title">What's it about?</div>
+              <div className="inner-book__secondary--title">
+                What's it about?
+              </div>
               <div className="inner-book__tags--wrapper">
                 <div className="inner-book__tag">Biography &amp; Memoir</div>
                 <div className="inner-book__tag">Personal Development</div>
@@ -181,17 +184,14 @@ function InsideBook() {
               </div>
             </div>
             <div className="inner-book--img-wrapper">
-              <figure
-                className="book__image--wrapper"
-                >
+              <figure className="book__image--wrapper">
                 {/* style="height: 300px; width: 300px; min-width: 300px;" */}
                 <img
                   className="book__image"
                   src="https://firebasestorage.googleapis.com/v0/b/summaristt.appspot.com/o/books%2Fimages%2Fcant-hurt-me.png?alt=media&amp;token=026646b0-40f8-48c4-8d32-b69bd5b8f700"
                   alt="book"
-                  
-                  />
-                  {/* style="display: block;" */}
+                />
+                {/* style="display: block;" */}
               </figure>
             </div>
           </div>

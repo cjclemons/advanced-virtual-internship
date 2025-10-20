@@ -1,10 +1,10 @@
-
+"use client";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import { AuthModalProvider } from "./components/context/AuthModalContext";
 import AuthenticationModal from "./components/AuthenticationModal";
 import { AuthProvider } from "./components/context/AuthContext";
-import {Provider} from "react-redux"
+import { Provider } from "react-redux";
 import { store } from "./redux/store";
 
 import AppWrapper from "./components/wrappers/AppWrapper";
@@ -27,15 +27,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${roboto.className} antialiased`}>
         <Provider store={store}>
-
-        <AuthProvider>
-          <AuthModalProvider>
-            <AppWrapper>
-              {children}
-              <AuthenticationModal />
-            </AppWrapper>
-          </AuthModalProvider>
-        </AuthProvider>
+          <AuthProvider>
+            <AuthModalProvider>
+              <AppWrapper>
+                {children}
+                <AuthenticationModal />
+              </AppWrapper>
+            </AuthModalProvider>
+          </AuthProvider>
         </Provider>
       </body>
     </html>

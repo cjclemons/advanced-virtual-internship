@@ -1,3 +1,4 @@
+"use client"
 import PlanHeader from "../components/plan/PlanHeader";
 import PlanFeatures from "../components/plan/PlanFeatures";
 import PlanCards from "../components/plan/PlanCards";

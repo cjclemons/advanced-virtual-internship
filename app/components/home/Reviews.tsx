@@ -1,3 +1,4 @@
+"use client";
 import { BsStarFill } from "react-icons/bs";
 
 function Reviews() {

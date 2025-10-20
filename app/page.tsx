@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Navbar from "./components/home/Navbar";
 import Landing from "./components/home/Landing";
@@ -7,9 +7,7 @@ import Reviews from "./components/home/Reviews";
 import Numbers from "./components/home/Numbers";
 import Footer from "./components/home/Footer";
 
-
 export default function Home() {
-
   return (
     <>
       <div className="body">
@@ -17,7 +15,7 @@ export default function Home() {
         <Landing />
         <Features />
         <Reviews />
-        <Numbers/>
+        <Numbers />
         <Footer />
       </div>
     </>

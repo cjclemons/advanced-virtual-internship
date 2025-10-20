@@ -1,3 +1,4 @@
+"use client";
 import PricingTop from "next/image";
 
 function PlanHeader() {
