@@ -7,7 +7,7 @@ interface PageProps {
   };
 }
 
-export default async function InsideBook({ params }: PageProps) {
+export default async function InsideBook({ params }: { params: { id: string } }) {
   const book = await getBookById(params.id);
 
   if (!book) return <div>Book not found</div>;

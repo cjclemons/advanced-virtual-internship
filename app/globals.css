@@ -1581,7 +1581,7 @@ button:disabled {
   text-align: center;
 }
 
-.finished__books--block-wrapper:last-childs {
+.finished__books--block-wrapper::last-childs {
   margin-bottom: 0;
 }
 
