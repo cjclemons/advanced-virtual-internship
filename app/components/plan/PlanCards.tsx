@@ -30,23 +30,33 @@ function PlanCards() {
 }, [user, db]);
 
   // Handle final plan selection button
-  const handlePlanSelect = async () => {
-    if (!user||!db) {
-      alert("You must be logged in to select a plan.");
-      return;
-    }
+ const handlePlanSelect = async () => {
+  if (!user || !db) {
+    alert("You must be logged in to select a plan.");
+    return;
+  }
 
-    const selectedPlan = planCardActive === "yearly" ? "premium_plus" : "premium";
+  const selectedPlan = planCardActive === "yearly" ? "premium_plus" : "premium";
 
-    try {
-      const userRef = doc(db, "users", user.uid);
-      await setDoc(userRef, { plan: selectedPlan }, { merge: true });
-      alert(`Plan updated to ${selectedPlan.replace("_", " ")}!`);
-    } catch (error) {
-      console.error("Error updating plan:", error);
-      alert("Something went wrong. Please try again.");
+  try {
+    const response = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ plan: selectedPlan, userId: user.uid }),
+    });
+
+    const data = await response.json();
+
+    if (data.url) {
+      window.location.href = data.url; // Redirect to Stripe Checkout
+    } else {
+      alert("Could not initiate checkout session.");
     }
-  };
+  } catch (error) {
+    console.error("Error initiating checkout:", error);
+    alert("Something went wrong. Please try again.");
+  }
+};
 
   return (
     <>

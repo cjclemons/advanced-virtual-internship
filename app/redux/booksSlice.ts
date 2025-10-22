@@ -1,21 +1,27 @@
-"use client";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Book } from "../types/books";
 import axios from "axios";
+import { PayloadAction } from "@reduxjs/toolkit";
 
 interface BooksState {
   recommended: Book[];
   finished: Book[];
   selected: Book[];
+  suggested: Book[];
+  searchResults: Book[];
   loading: {
     recommended: boolean;
     finished: boolean;
     selected: boolean;
+    suggested: boolean;
+    search: boolean;
   };
   error: {
     recommended: string | null;
     finished: string | null;
     selected: string | null;
+    suggested: string | null;
+    search: string | null;
   };
 }
 
@@ -23,15 +29,21 @@ const initialState: BooksState = {
   recommended: [],
   finished: [],
   selected: [],
+  suggested: [],
+  searchResults: [],
   loading: {
     recommended: false,
     finished: false,
     selected: false,
+    suggested: false,
+    search: false,
   },
   error: {
     recommended: null,
     finished: null,
     selected: null,
+    suggested: null,
+    search: null,
   },
 };
 
@@ -64,10 +76,53 @@ export const fetchSelectedBooks = createAsyncThunk(
   }
 );
 
+export const fetchSuggestedBooks = createAsyncThunk(
+  "books/fetchSuggestedBooks",
+  async () => {
+    const res = await axios.get<Book[]>(
+      "https://us-central1-summaristt.cloudfunctions.net/getBooks?status=suggested"
+    );
+    return res.data;
+  }
+);
+
+export const searchBooks = createAsyncThunk(
+  "books/searchBooks",
+  async (query: string) => {
+    const res = await axios.get<Book[]>(
+      `https://us-central1-summaristt.cloudfunctions.net/getBooksByAuthorOrTitle?search=${query}`
+    );
+    return res.data;
+  }
+);
+
 const booksSlice = createSlice({
   name: "books",
   initialState,
-  reducers: {},
+  reducers: {
+  setBookDuration: (
+    state,
+    action: PayloadAction<{ bookId: string; duration: number }>
+  ) => {
+    const { bookId, duration } = action.payload;
+
+    // Update duration for book in all lists
+    const allLists = [
+      state.recommended,
+      state.selected,
+      state.suggested,
+      state.searchResults,
+      state.finished,
+    ];
+
+    for (const list of allLists) {
+      const book = list.find((b) => b.id === bookId);
+      if (book) {
+        book.duration = duration;
+      }
+    }
+  },
+},
   extraReducers: (builder) => {
     builder
       .addCase(fetchRecommendedBooks.pending, (state) => {
@@ -81,7 +136,7 @@ const booksSlice = createSlice({
       .addCase(fetchRecommendedBooks.rejected, (state, action) => {
         state.loading.recommended = false;
         state.error.recommended =
-          action.error.message ?? "Something went wrong";
+          action.error.message ?? "Error fetching recommended books";
       })
       .addCase(fetchFinishedBooks.pending, (state) => {
         state.loading.finished = true;
@@ -108,8 +163,34 @@ const booksSlice = createSlice({
         state.loading.selected = false;
         state.error.selected =
           action.error.message ?? "Error fetching selected books";
+      })
+      .addCase(fetchSuggestedBooks.pending, (state) => {
+        state.loading.suggested = true;
+        state.error.suggested = null;
+      })
+      .addCase(fetchSuggestedBooks.fulfilled, (state, action) => {
+        state.loading.suggested = false;
+        state.suggested = action.payload;
+      })
+      .addCase(fetchSuggestedBooks.rejected, (state, action) => {
+        state.loading.suggested = false;
+        state.error.suggested =
+          action.error.message ?? "Error fetching suggested books";
+      })
+      .addCase(searchBooks.pending, (state) => {
+        state.loading.search = true;
+        state.error.search = null;
+      })
+      .addCase(searchBooks.fulfilled, (state, action) => {
+        state.loading.search = false;
+        state.searchResults = action.payload;
+      })
+      .addCase(searchBooks.rejected, (state, action) => {
+        state.loading.search = false;
+        state.error.search = action.error.message ?? "Error searching books";
       });
   },
 });
 
 export default booksSlice.reducer;
+export const { setBookDuration } = booksSlice.actions;

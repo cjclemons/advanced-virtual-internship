@@ -1,5 +1,45 @@
 "use client";
-function SearchBar() {
+import { AppDispatch } from "@/app/redux/store";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { searchBooks } from "@/app/redux/booksSlice"; // Adjust path
+import { RootState } from "@/app/redux/store"; // Adjust path
+import Link from "next/link";
+
+export default function SearchBar() {
+  const dispatch = useDispatch<AppDispatch>();
+  const { searchResults, loading } = useSelector(
+    (state: RootState) => state.books
+  );
+
+  const [query, setQuery] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  // Debounced search
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      const trimmedQuery = query.trim();
+
+      if (trimmedQuery.length > 0) {
+        dispatch(searchBooks(trimmedQuery));
+        setShowDropdown(true);
+      } else {
+        setShowDropdown(false);
+      }
+    }, 300);
+
+    return () => clearTimeout(delayDebounce);
+  }, [query, dispatch]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+  };
+
+  const handleSelect = () => {
+    setQuery("");
+    setShowDropdown(false);
+  };
+
   return (
     <>
       <div className="search__background">
@@ -14,7 +54,8 @@ function SearchBar() {
                   className="search__input"
                   placeholder="Search for books"
                   type="text"
-                  //   value=""
+                  value={query}
+                  onChange={handleChange}
                 />
                 <div className="search__icon">
                   <svg
@@ -50,10 +91,66 @@ function SearchBar() {
               </svg>
             </div>
           </div>
+          
+          {showDropdown && (
+            <div className="search__books--wrapper">
+              {searchResults.length > 0 ? (
+                searchResults.map((book) => (
+                  <Link key={book.id} href={`/book/${book.id}`}>
+                    <div className="search__book--link" onClick={handleSelect}>
+                      <audio src={book.audioLink}></audio>
+                      <figure
+                        className="book__image--wrapper"
+                        style={{
+                          height: "80px",
+                          width: "80px",
+                          minWidth: "80px",
+                        }}
+                      >
+                        <img
+                          className="book__image"
+                          src={book.imageLink}
+                          alt={book.title}
+                          style={{ display: "block" }}
+                        />
+                      </figure>
+                      <div>
+                        <div className="search__book--title">{book.title}</div>
+                        <div className="search__book--author">
+                          {book.author}
+                        </div>
+                        <div className="search__book--duration">
+                          <div className="recommended__book--details">
+                            <div className="recommended__book--details-icon">
+                              <svg
+                                stroke="currentColor"
+                                fill="currentColor"
+                                strokeWidth="0"
+                                viewBox="0 0 24 24"
+                                height="1em"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
+                                <path d="M13 7h-2v6h6v-2h-4z"></path>
+                              </svg>
+                            </div>
+                            <div className="recommended__book--details-text">
+                              03:24
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                ))
+              ) : !loading && query.trim().length > 0 ? (
+                <p className="search__no-results">No books found.</p>
+              ) : null}
+            </div>
+          )}
         </div>
       </div>
     </>
   );
 }
-
-export default SearchBar;

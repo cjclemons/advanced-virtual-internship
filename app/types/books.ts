@@ -15,5 +15,6 @@ export interface Book {
   summary: string;
   tags: string[];
   bookDescription: string;
-  autherDescription: string;
+  authorDescription: string;
+  duration: number
 }
