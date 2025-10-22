@@ -1,72 +1,70 @@
-// // pages/api/webhook.ts
-// import { buffer } from "micro";
-// import * as admin from "firebase-admin";
-// import { NextApiRequest, NextApiResponse } from "next";
-// import Stripe from "stripe";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import Stripe from 'stripe';
+import { buffer } from 'micro';
+import { getAdminDb } from '@/firebase/admin'; // Your admin Firestore init
 
-// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-//   apiVersion: "2025-09-30.clover",
-// });
+// Stripe secret key
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2025-09-30.clover',
+});
 
-// // Firestore Admin SDK initialization
-// if (!admin.apps.length) {
-//   admin.initializeApp({
-//     credential: admin.credential.cert({
-//       projectId: process.env.FIREBASE_PROJECT_ID,
-//       clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-//       privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-//     }),
-//   });
-// }
-// const db = admin.firestore();
+// Disable the default body parser (required for Stripe to verify the signature)
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
-// export const config = {
-//   api: {
-//     bodyParser: false,
-//   },
-// };
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'POST') {
+    return res.status(405).end('Method Not Allowed');
+  }
 
-// const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+  const buf = await buffer(req);
+  const sig = req.headers['stripe-signature'] as string;
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
-// export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-//   const buf = await buffer(req);
-//   const sig = req.headers["stripe-signature"] as string;
+  let event: Stripe.Event;
 
-//   let event: Stripe.Event;
+  try {
+    event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
+  } catch (err: any) {
+    console.error('Webhook error:', err.message);
+    return res.status(400).send(`Webhook Error: ${err.message}`);
+  }
 
-//   try {
-//     event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
-//   } catch (err: any) {
-//     console.error("Webhook Error:", err.message);
-//     return res.status(400).send(`Webhook Error: ${err.message}`);
-//   }
+  // Handle the event
+  switch (event.type) {
+    case 'checkout.session.completed': {
+      const session = event.data.object as Stripe.Checkout.Session;
 
-//   // ✅ Handle successful payment
-//   if (event.type === "checkout.session.completed") {
-//     const session = event.data.object as Stripe.Checkout.Session;
+      const userId = session.metadata?.userId;
+      const plan = session.metadata?.plan;
 
-//     const userId = session.metadata?.userId;
-//     const plan = session.metadata?.plan; // you must send this in your session creation
+      if (!userId || !plan) {
+        console.warn("Missing metadata in session");
+        break;
+      }
 
-//     if (userId && plan) {
-//       try {
-//         const userRef = db.collection("users").doc(userId);
-//         await userRef.set(
-//           {
-//             plan,
-//             subscriptionStatus: "active",
-//             stripeCustomerId: session.customer,
-//             subscriptionId: session.subscription,
-//           },
-//           { merge: true }
-//         );
-//         console.log(`✅ Updated user ${userId} to plan ${plan}`);
-//       } catch (err) {
-//         console.error("❌ Failed to update Firestore:", err);
-//         return res.status(500).send("Failed to update Firestore");
-//       }
-//     }
-//   }
+      // ✅ Set the user's plan in Firestore (server-side)
+      const db = getAdminDb();
+      await db.collection('users').doc(userId).set({ plan }, { merge: true });
 
-//   res.status(200).json({ received: true });
-// }
+      break;
+    }
+
+    case 'invoice.payment_failed':
+      // Handle failed payment
+      break;
+
+    case 'customer.subscription.deleted':
+      // Handle cancelation
+      break;
+
+    // Add more events as needed
+    default:
+      console.log(`Unhandled event type: ${event.type}`);
+  }
+
+  res.status(200).end();
+}
