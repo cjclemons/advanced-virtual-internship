@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 // Type for your page component
 interface PageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 // ✅ Correct: generateMetadata argument type
@@ -26,9 +26,11 @@ interface PageProps {
 
 // ✅ Page component
 export default async function InsideBook({ params }: PageProps) {
-  const book = await getBookById(params.id);
+  const { id } = await params; // ✅ MUST await params
+
+  const book = await getBookById(id);
 
   if (!book) return <div>Book not found</div>;
 
-  return <InsideBookClient bookId={params.id} />;
+  return <InsideBookClient bookId={id} />;
 }
