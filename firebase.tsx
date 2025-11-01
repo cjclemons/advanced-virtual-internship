@@ -1,12 +1,9 @@
 "use client";
-// Import the functions you need from the SDKs you need
+
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
 export const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
@@ -15,18 +12,20 @@ export const firebaseConfig = {
   messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
   appId: process.env.NEXT_PUBLIC_APP_ID,
 };
-if (!firebaseConfig.apiKey) {
-  throw new Error(" Missing Firebase config.");
-}
-// Initialize Firebase
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
-// ✅ Export functions that only run on client
+let app: any = null;
+
+if (typeof window !== "undefined") {
+  // ✅ Only run Firebase init in the browser, never during prerender
+  if (!firebaseConfig.apiKey) {
+    throw new Error("Missing Firebase config.");
+  }
+
+  app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+}
 
 export const getClientAuth = () =>
-  typeof window !== "undefined" ? getAuth(app) : null;
+  typeof window !== "undefined" && app ? getAuth(app) : null;
 
-export const getClientDb = () => {
-  if (typeof window === "undefined") return null;
-  return getFirestore(app);
-};
+export const getClientDb = () =>
+  typeof window !== "undefined" && app ? getFirestore(app) : null;
