@@ -39,7 +39,7 @@ function SideBar() {
               </div>
               <div className="sidebar__link--text">For you</div>
             </Link>
-            <Link className="sidebar__link--wrapper" href="/my-library">
+            <Link className="sidebar__link--wrapper sidebar__link--not-allowed" href="/my-library">
               <div className="sidebar__link--line "></div>
               <div className="sidebar__icon--wrapper">
                 <svg
