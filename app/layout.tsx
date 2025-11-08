@@ -1,7 +1,6 @@
 
 import { Metadata } from "next";
 import { Roboto } from "next/font/google";
-
 import "./globals.css";
 import ClientProviders from "@/app/clients/ClientProviders";
 
